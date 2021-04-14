@@ -8,10 +8,19 @@ class ErrorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("MK Splash Screen")),
       body: Center(
-          child: Text("Bienvenue sur \n MK Solutions",
-              style: TextStyle(color: Colors.black, fontSize: 30))),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Image.asset("network_error.jpg"),
+          Text(
+              "Réseau indisponible\nVeuillez vérifier votre connexion internet",
+              style: TextStyle(
+                color: Colors.grey[350],
+                fontSize: 15,
+              ))
+        ],
+      )),
     );
   }
 }

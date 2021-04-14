@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tiakbookapp/src/utils/status.dart';
 import 'package:tiakbookapp/src/widgets/error_screen.dart';
 import 'package:tiakbookapp/src/widgets/inscription.dart';
 import 'package:tiakbookapp/src/widgets/splashscreen_page.dart';
@@ -10,7 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -22,14 +23,43 @@ class _MyAppState extends State<MyApp> {
   // Set default `_initialized` and `_error` state to false
   bool _initialized = false;
   bool _error = false;
+  var _user;
+
+  checkAuthStatus() {
+    FirebaseAuth.instance.authStateChanges().listen((var user) {
+      setState(() {
+        _user = user;
+      });
+    });
+  }
+
+  Future<Status> signin(String email, String password) async {
+    var status;
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      status = Status.Success(state: true, message: "Connexion Réussie");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        status = Status.Error(
+            state: false, message: 'Cet utilisateur n\'existe pas.', e: e);
+      } else if (e.code == 'wrong-password') {
+        status =
+            Status.Error(state: false, message: 'Mot de passe érroné', e: e);
+      }
+    }
+    return status;
+  }
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
   // Define an async function to initialize FlutterFire
-  void initializeFlutterFire() async {
+  Future<void> initializeFlutterFire() async {
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
+      print('object');
       await Firebase.initializeApp();
+      await FirebaseAuth.instance.signInAnonymously();
       setState(() {
         _initialized = true;
       });
@@ -43,7 +73,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    //initializeFlutterFire();
+    initializeFlutterFire();
+    checkAuthStatus();
     super.initState();
   }
 
@@ -55,14 +86,14 @@ class _MyAppState extends State<MyApp> {
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      return SplashScreenPage();
+      return ErrorScreen();
     }
     return MaterialApp(
         theme: ThemeData(
             brightness: Brightness.light,
             primaryColor: Colors.blue,
             accentColor: Colors.white),
-        home: SplashScreenPage(),
+        home: Acceuil(),
         debugShowCheckedModeBanner: false,
         routes: {'home': (context) => Acceuil()});
   }

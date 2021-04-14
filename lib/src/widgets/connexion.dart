@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiakbookapp/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tiakbookapp/src/pages/explorer.dart';
+import 'package:tiakbookapp/src/utils/status.dart';
 
 class Connexion extends StatefulWidget {
   @override
@@ -8,9 +11,40 @@ class Connexion extends StatefulWidget {
 }
 
 class _ConnexionState extends State<Connexion> {
-  String email = '';
-  String password = '';
-  final _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<String> register() async {
+    String result = "";
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        result = 'Le mot de passe fourni est faible.';
+      } else if (e.code == 'email-already-in-use') {
+        result = ('Cet email est déjà lié à un compte.');
+      }
+    } catch (e) {
+      result = e.toString();
+    }
+    return result;
+  }
+
+  Future<void> signin() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      /* if (e.code == 'user-not-found') {
+      } else if (e.code == 'wrong-password') {
+        status =
+            Status.Error(state: false, message: 'Mot de passe érroné', e: e);
+      } */
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +52,7 @@ class _ConnexionState extends State<Connexion> {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
           child: Form(
-            key: _formkey,
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -35,8 +69,9 @@ class _ConnexionState extends State<Connexion> {
                   decoration: InputDecoration(
                       labelText: 'Téléphone/Email',
                       border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty ? 'Entrez votre email' : null,
-                  onChanged: (val) => email = val,
+                  validator: (val) =>
+                      val!.isEmpty ? 'Entrez votre email' : null,
+                  controller: _emailController,
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
@@ -46,28 +81,32 @@ class _ConnexionState extends State<Connexion> {
                   validator: (val) => val!.length < 6
                       ? 'Entrez mot de passe avec 6 ou plusieurs caracteres'
                       : null,
-                  onChanged: (val) => password = val,
+                  controller: _passwordController,
                 ),
                 SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        //TODO logical sequences
-                        //
+                  child: TextButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        print("Veuillez fournir des identifiants valides");
+                      } else {
+                        await signin();
+                        if (!FirebaseAuth.instance.currentUser!.isAnonymous) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Explorer()));
+                        }
                       }
                     },
-                    color: Colors.blue,
                     child: Text(
-                      'Se Connectez',
+                      'Se Connecter',
                       style: GoogleFonts.raleway(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold),
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
                   ),
                 ),
                 Padding(
