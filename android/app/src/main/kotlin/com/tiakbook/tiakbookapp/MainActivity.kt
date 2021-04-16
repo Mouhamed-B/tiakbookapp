@@ -1,4 +1,4 @@
-package com.tiakbook.tiakbookapp
+package com.tiakbook.app
 
 import io.flutter.embedding.android.FlutterActivity
 

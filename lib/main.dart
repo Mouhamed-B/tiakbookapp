@@ -2,103 +2,51 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tiakbookapp/src/utils/status.dart';
+import 'package:tiakbookapp/src/pages/delivery_page.dart';
 import 'package:tiakbookapp/src/widgets/error_screen.dart';
 import 'package:tiakbookapp/src/widgets/inscription.dart';
-import 'package:tiakbookapp/src/widgets/splashscreen_page.dart';
-import 'package:tiakbookapp/src/widgets/acceuil.dart';
+import 'package:tiakbookapp/src/pages/splashscreen_page.dart';
+import 'package:tiakbookapp/src/pages/acceuil.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
-  //WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
 }
 
-class MyApp extends StatefulWidget {
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // Set default `_initialized` and `_error` state to false
-  bool _initialized = false;
-  bool _error = false;
-  var _user;
-
-  checkAuthStatus() {
-    FirebaseAuth.instance.authStateChanges().listen((var user) {
-      setState(() {
-        _user = user;
-      });
-    });
-  }
-
-  Future<Status> signin(String email, String password) async {
-    var status;
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      status = Status.Success(state: true, message: "Connexion Réussie");
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        status = Status.Error(
-            state: false, message: 'Cet utilisateur n\'existe pas.', e: e);
-      } else if (e.code == 'wrong-password') {
-        status =
-            Status.Error(state: false, message: 'Mot de passe érroné', e: e);
-      }
-    }
-    return status;
-  }
-
-  FirebaseAuth auth = FirebaseAuth.instance;
-
-  // Define an async function to initialize FlutterFire
-  Future<void> initializeFlutterFire() async {
-    try {
-      // Wait for Firebase to initialize and set `_initialized` state to true
-      print('object');
-      await Firebase.initializeApp();
-      await FirebaseAuth.instance.signInAnonymously();
-      setState(() {
-        _initialized = true;
-      });
-    } catch (e) {
-      // Set `_error` state to true if Firebase initialization fails
-      setState(() {
-        _error = true;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    initializeFlutterFire();
-    checkAuthStatus();
-    super.initState();
-  }
+class App extends StatelessWidget {
+  // Create the initialization Future outside of `build`:
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    if (_error) {
-      return ErrorScreen();
-    }
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return ErrorScreen();
+        }
 
-    // Show a loader until FlutterFire is initialized
-    if (!_initialized) {
-      return ErrorScreen();
-    }
-    return MaterialApp(
-        theme: ThemeData(
-            brightness: Brightness.light,
-            primaryColor: Colors.blue,
-            accentColor: Colors.white),
-        home: Acceuil(),
-        debugShowCheckedModeBanner: false,
-        routes: {'home': (context) => Acceuil()});
+        // Once complete, show your application
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+              theme: ThemeData(
+                  brightness: Brightness.light,
+                  primaryColor: Colors.blue,
+                  accentColor: Colors.white),
+              home: Acceuil(),
+              debugShowCheckedModeBanner: false,
+              routes: {'home': (context) => Acceuil()});
+        }
+
+        // Otherwise, show something whilst waiting for initialization to complete
+        return SplashScreenPage();
+      },
+    );
   }
 }
-
 // ignore: must_be_immutable
 
 //class contact driver
@@ -113,113 +61,6 @@ class ContactLivreur extends StatelessWidget {
         accentColor: Colors.white,
       ),
       home: SaisieContact(),
-    );
-  }
-}
-
-class SaisieContact extends StatefulWidget {
-  @override
-  _SaisieContactState createState() => _SaisieContactState();
-}
-
-class _SaisieContactState extends State<SaisieContact> {
-  String numeroDestinataire = '';
-  String lieuExpedition = '';
-  String descriptionColie = '';
-  String lieuDeRecup = '';
-  String modeDePaiement = '';
-  final _formkey = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-          child: Form(
-            key: _formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset(
-                  "images/livraison.png",
-                  height: 100.0,
-                  width: 100.0,
-                ),
-                Text(
-                  'Veuiller remplir le formulaire pour contacter un livreur',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Numero destinataire/expediteur',
-                      border: OutlineInputBorder()),
-                  validator: (val) =>
-                      val!.isEmpty ? 'Entrez le numero du destinataire' : null,
-                  onChanged: (val) => numeroDestinataire = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Lieu d\'expedition',
-                      border: OutlineInputBorder()),
-                  validator: (val) =>
-                      val!.isEmpty ? 'Entrez le lieu d\'expedition' : null,
-                  onChanged: (val) => lieuExpedition = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Description du Colis',
-                      border: OutlineInputBorder()),
-                  validator: (val) =>
-                      val!.isEmpty ? 'expliquez le contenue du colis' : null,
-                  onChanged: (val) => descriptionColie = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Lieu de recupération',
-                      border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty
-                      ? 'Entrez le lieu de recuperation du colis'
-                      : null,
-                  onChanged: (val) => lieuDeRecup = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Mode de paiement',
-                      border: OutlineInputBorder()),
-                  validator: (val) =>
-                      val!.isEmpty ? 'choisir le mode de paiement' : null,
-                  onChanged: (val) => modeDePaiement = val,
-                ),
-                SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        //TODO logical sequences
-                        //
-                      }
-                    },
-                    color: Colors.blue,
-                    child: Text(
-                      'Contactez un livreur',
-                      style: GoogleFonts.pacifico(
-                          color: Colors.white, fontSize: 22),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

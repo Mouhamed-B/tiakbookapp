@@ -2,27 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:tiakbookapp/src/pages/acceuil.dart';
 
-//splashScreen class
-class SplashScreenPage extends StatefulWidget {
-  @override
-  _SplashScreenPageState createState() => _SplashScreenPageState();
-}
-
-class _SplashScreenPageState extends State<SplashScreenPage> {
-  void starTime() {
-    Timer(Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacementNamed('home');
-    });
-  }
-
-  /* @override
-  void initState() {
-    super.initState();
-    starTime();
-  } */
-
+class SplashScreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //starTime();
@@ -36,7 +18,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
                   padding: const EdgeInsets.all(50.0),
                   child: Image.asset(
                     "images/tiakBook.png",
-                    width: MediaQuery.of(context).size.width * .7,
+                    width: MediaQuery.of(context).size.width * 0.7,
                   ),
                 ),
               ),
@@ -62,6 +44,26 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
                     ],
                   ),
                 ),
+              ),
+              Align(
+                child: LayoutBuilder(
+                  builder: (context, _) {
+                    return IconButton(
+                      icon: Icon(Icons.play_circle_filled),
+                      iconSize: 50.0,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Acceuil(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                alignment: Alignment.bottomCenter,
               ),
             ],
           ),

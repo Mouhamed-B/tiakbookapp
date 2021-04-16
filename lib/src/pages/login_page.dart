@@ -14,34 +14,24 @@ class _ConnexionState extends State<Connexion> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  Future<String> register() async {
-    String result = "";
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        result = 'Le mot de passe fourni est faible.';
-      } else if (e.code == 'email-already-in-use') {
-        result = ('Cet email est déjà lié à un compte.');
-      }
-    } catch (e) {
-      result = e.toString();
-    }
-    return result;
-  }
+  var _status;
 
   Future<void> signin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
     } on FirebaseAuthException catch (e) {
-      /* if (e.code == 'user-not-found') {
+      if (e.code == 'user-not-found') {
+        setState(() {
+          _status = Status.Error(
+              state: false, message: 'Cet Utilisateur n\'existe pas', e: e);
+        });
       } else if (e.code == 'wrong-password') {
-        status =
-            Status.Error(state: false, message: 'Mot de passe érroné', e: e);
-      } */
+        setState(() {
+          _status =
+              Status.Error(state: false, message: 'Mot de passe érroné', e: e);
+        });
+      }
     }
   }
 
@@ -88,22 +78,22 @@ class _ConnexionState extends State<Connexion> {
                   padding: const EdgeInsets.all(8.0),
                   child: TextButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        print("Veuillez fournir des identifiants valides");
+                      await signin();
+                      if (!FirebaseAuth.instance.currentUser!.isAnonymous) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Explorer()));
                       } else {
-                        await signin();
-                        if (!FirebaseAuth.instance.currentUser!.isAnonymous) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Explorer()));
-                        }
+                        SnackBar(
+                          content: Text(_status.message),
+                        );
                       }
                     },
                     child: Text(
                       'Se Connecter',
                       style: GoogleFonts.raleway(
-                          color: Colors.white,
+                          color: Colors.blue,
                           fontSize: 22,
                           fontWeight: FontWeight.bold),
                     ),
