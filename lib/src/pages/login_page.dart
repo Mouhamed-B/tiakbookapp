@@ -24,7 +24,7 @@ class _ConnexionState extends State<Connexion> {
       if (e.code == 'user-not-found') {
         setState(() {
           _status = Status.Error(
-              state: false, message: 'Cet Utilisateur n\'existe', e: e);
+              state: false, message: 'Cet Utilisateur n\'existe pas', e: e);
         });
       } else if (e.code == 'wrong-password') {
         setState(() {
@@ -84,6 +84,10 @@ class _ConnexionState extends State<Connexion> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Explorer()));
+                      } else {
+                        SnackBar(
+                          content: Text(_status.message),
+                        );
                       }
                     },
                     child: Text(

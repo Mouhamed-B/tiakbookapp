@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiakbookapp/main.dart';
-import 'package:tiakbookapp/src/widgets/connexion.dart';
+import 'package:tiakbookapp/src/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Acceuil extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _AcceuilState createState() => _AcceuilState();
+  _HomeState createState() => _HomeState();
 }
 
-class _AcceuilState extends State<Acceuil> {
+class _HomeState extends State<Home> {
   var message =
       "Une plateforme de livraison facile fiable rapide sans deplacement";
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -37,7 +37,8 @@ class _AcceuilState extends State<Acceuil> {
                 child: Center(
                   child: Image.asset(
                     "images/tiakBook.png",
-                    width: MediaQuery.of(context).size.width * .4,
+                    width: MediaQuery.of(context).size.width * .2,
+                    height: MediaQuery.of(context).size.height * .2,
                   ),
                 ),
               ),
