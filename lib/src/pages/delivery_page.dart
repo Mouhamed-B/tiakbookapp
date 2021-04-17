@@ -15,10 +15,14 @@ class _SaisieContactState extends State<SaisieContact> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(
+        title: Text("Contact livreur"),
+      ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 50.0),
           child: Form(
             key: _formkey,
             child: Column(
@@ -82,21 +86,22 @@ class _SaisieContactState extends State<SaisieContact> {
                 SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: FlatButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         //TODO logical sequences
                         //
                       }
                     },
-                    color: Colors.blue,
-                    child: Text(
-                      'Contactez un livreur',
-                      style: GoogleFonts.pacifico(
-                          color: Colors.white, fontSize: 22),
+                    child: Text('Contactez un livreur',
+                        style: GoogleFonts.pacifico(
+                            color: Colors.white, fontSize: 22)),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      onPrimary: Colors.white,
+                      shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
                   ),
                 ),
               ],
@@ -104,6 +109,6 @@ class _SaisieContactState extends State<SaisieContact> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
