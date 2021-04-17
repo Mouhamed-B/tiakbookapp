@@ -27,141 +27,140 @@ class _InscriptionLivreurState extends State<InscriptionLivreur> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-          child: Form(
-            key: _formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset("images/contact.png", height: 100.0, width: 100.0),
-                Text(
-                  'Création d\' un compte Livreur',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Nom', border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty ? 'Entrez votre nom' : null,
-                  onChanged: (val) => nom = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Prénom', border: OutlineInputBorder()),
-                  validator: (val) =>
-                  val!.isEmpty ? 'Entrez votre prénom' : null,
-                  onChanged: (val) => prenom = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Téléphone', border: OutlineInputBorder()),
-                  validator: (val) =>
-                  val!.isEmpty ? 'Entrez votre numéro' : null,
-                  onChanged: (val) => telephone = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Email ', border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty ? 'Entrez votre email' : null,
-                  onChanged: (val) => email = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Mot de passe', border: OutlineInputBorder()),
-                  validator: (val) => val!.length < 6
-                      ? 'Entrez mot de passe avec 6 ou plusieurs caracteres'
-                      : null,
-                  onChanged: (val) => password = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Confirmez le mot de passe',
-                      border: OutlineInputBorder()),
-                  onChanged: (val) => confirmPwd = val,
-                  validator: (val) => confirmPwd != password
-                      ? 'le mot de passe ne correspond pas'
-                      : null,
-                ),
-                // ignore: missing_required_param
-                SizedBox(height: 10.0),
-                Container(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    child: DropdownButton(
-                        hint: Text('choisir un type de véhicules'),
-                        //dropdownColor: Colors.blue,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 36,
-                        isExpanded: true,
-                        value: valueChoose,
-                        onChanged: (dynamic newValue) {
-                          setState(() {
-                            valueChoose = newValue;
-                          });
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: (AppBar(title: Center(child: Text("Inscription ")))),
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset("images/contact.png",
+                        height: 100.0, width: 100.0),
+                    Text(
+                      'Création d\' un compte Livreur',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Nom', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre nom' : null,
+                      onChanged: (val) => nom = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Prénom', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre prénom' : null,
+                      onChanged: (val) => prenom = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Téléphone', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre numéro' : null,
+                      onChanged: (val) => telephone = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Email ', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre email' : null,
+                      onChanged: (val) => email = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Mot de passe',
+                          border: OutlineInputBorder()),
+                      validator: (val) => val!.length < 6
+                          ? 'Entrez mot de passe avec 6 ou plusieurs caracteres'
+                          : null,
+                      onChanged: (val) => password = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Confirmez le mot de passe',
+                          border: OutlineInputBorder()),
+                      onChanged: (val) => confirmPwd = val,
+                      validator: (val) => confirmPwd != password
+                          ? 'le mot de passe ne correspond pas'
+                          : null,
+                    ),
+                    // ignore: missing_required_param
+                    SizedBox(height: 10.0),
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        child: DropdownButton(
+                            hint: Text('choisir un type de véhicules'),
+                            //dropdownColor: Colors.blue,
+                            icon: Icon(Icons.arrow_drop_down),
+                            iconSize: 36,
+                            isExpanded: true,
+                            value: valueChoose,
+                            onChanged: (dynamic newValue) {
+                              setState(() {
+                                valueChoose = newValue;
+                              });
+                            },
+                            items: listItem.map((valueItem) {
+                              return DropdownMenuItem(
+                                value: valueItem,
+                                child: Text(valueItem),
+                              );
+                            }).toList()),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            //TODO logical sequences
+                            //
+                          }
                         },
-                        items: listItem.map((valueItem) {
-                          return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(valueItem),
-                          );
-                        }).toList()),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        //TODO logical sequences
-                        //
-                      }
-                    },
-                    color: Colors.blue,
-                    child: Text(
-                      'S\'inscrire',
-                      style: GoogleFonts.pacifico(
-                          color: Colors.white, fontSize: 22),
+                        child: Text(
+                          'S\'inscrire',
+                          style: GoogleFonts.pacifico(
+                              color: Colors.white, fontSize: 22),
+                        ),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InscriptionType()));
+                          },
+                          child: Text(
+                            'Besoin d\'un nouveau compte',
+                            style: GoogleFonts.pacifico(
+                                color: Colors.blue, fontSize: 22),
+                          )),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: OutlineButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => InscriptionType()));
-                    },
-                    borderSide:
-                    BorderSide(width: 1.0, color: Colors.blueAccent),
-                    child: Text(
-                      'Besoin d\'un nouveau compte',
-                      style: GoogleFonts.pacifico(
-                          color: Colors.blue, fontSize: 22),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                  ),
-                )
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
@@ -184,102 +183,104 @@ class _InscriptionProfessionnelState extends State<InscriptionProfessionnel> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-          child: Form(
-            key: _formkey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset("images/telecharger.jpg",
-                    height: 100.0, width: 100.0),
-                Text(
-                  'Création d\' un compte Professionnel',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Nom', border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty ? 'Entrez votre nom' : null,
-                  onChanged: (val) => nom = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Prénom', border: OutlineInputBorder()),
-                  validator: (val) =>
-                  val!.isEmpty ? 'Entrez votre prénom' : null,
-                  onChanged: (val) => prenom = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Téléphone', border: OutlineInputBorder()),
-                  validator: (val) =>
-                  val!.isEmpty ? 'Entrez votre numéro' : null,
-                  onChanged: (val) => telephone = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Email', border: OutlineInputBorder()),
-                  validator: (val) => val!.isEmpty ? 'Entrez votre email' : null,
-                  onChanged: (val) => email = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Domaines professionels',
-                      border: OutlineInputBorder()),
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Mot de passe', border: OutlineInputBorder()),
-                  validator: (val) => val!.length < 6
-                      ? 'Entrez mot de passe avec 6 ou plusieurs caracteres'
-                      : null,
-                  onChanged: (val) => password = val,
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      labelText: 'Confirmez le mot de passe',
-                      border: OutlineInputBorder()),
-                  onChanged: (val) => confirmPwd = val,
-                  validator: (val) => confirmPwd != password
-                      ? 'le mot de passe ne correspond pas'
-                      : null,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: FlatButton(
-                    onPressed: () {
-                      if (_formkey.currentState!.validate()) {
-                        //TODO logical sequences
-                        //
-                      }
-                    },
-                    color: Colors.blue,
-                    child: Text(
-                      'S\'inscrire',
-                      style: GoogleFonts.pacifico(
-                          color: Colors.white, fontSize: 22),
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset("images/telecharger.jpg",
+                        height: 100.0, width: 100.0),
+                    Text(
+                      'Création d\' un compte Professionnel',
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                  ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Nom', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre nom' : null,
+                      onChanged: (val) => nom = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Prénom', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre prénom' : null,
+                      onChanged: (val) => prenom = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Téléphone', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre numéro' : null,
+                      onChanged: (val) => telephone = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Email', border: OutlineInputBorder()),
+                      validator: (val) =>
+                          val!.isEmpty ? 'Entrez votre email' : null,
+                      onChanged: (val) => email = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: 'Domaines professionels',
+                          border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Mot de passe',
+                          border: OutlineInputBorder()),
+                      validator: (val) => val!.length < 6
+                          ? 'Entrez mot de passe avec 6 ou plusieurs caracteres'
+                          : null,
+                      onChanged: (val) => password = val,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          labelText: 'Confirmez le mot de passe',
+                          border: OutlineInputBorder()),
+                      onChanged: (val) => confirmPwd = val,
+                      validator: (val) => confirmPwd != password
+                          ? 'le mot de passe ne correspond pas'
+                          : null,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            //TODO logical sequences
+                            //
+                          }
+                        },
+                        child: Text(
+                          'S\'inscrire',
+                          style: GoogleFonts.pacifico(
+                              color: Colors.white, fontSize: 22),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
