@@ -3,15 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiakbookapp/src/pages/delivery_page.dart';
-import 'package:tiakbookapp/src/widgets/error_screen.dart';
-import 'package:tiakbookapp/src/widgets/inscription.dart';
+import 'package:tiakbookapp/src/pages/error_screen.dart';
+import 'package:tiakbookapp/src/pages/signin_page.dart';
 import 'package:tiakbookapp/src/pages/splashscreen_page.dart';
-import 'package:tiakbookapp/src/pages/acceuil.dart';
+import 'package:tiakbookapp/src/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() {
+  MediaQueryData of(BuildContext context) {
+    assert(context != null);
+    assert(debugCheckHasMediaQuery(context));
+    return context.dependOnInheritedWidgetOfExactType<MediaQuery>()!.data;
+  }
+
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  runApp(MaterialApp(
+    home: App(),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -36,9 +44,9 @@ class App extends StatelessWidget {
                   brightness: Brightness.light,
                   primaryColor: Colors.blue,
                   accentColor: Colors.white),
-              home: Acceuil(),
+              home: Home(),
               debugShowCheckedModeBanner: false,
-              routes: {'home': (context) => Acceuil()});
+              routes: {'home': (context) => Home()});
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
@@ -69,70 +77,63 @@ class ContactLivreur extends StatelessWidget {
 class InscriptionType extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 70),
-          child: Container(
-            child: Column(
-              children: [
-                Center(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 200, right: 20, left: 20),
-                    child: SizedBox(
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Choose inscription"),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 70),
+              child: Container(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 200, right: 20, left: 20),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Livreur()));
+                            },
+                            child: Text("S'inscrire en tant que Livreur",
+                                style: GoogleFonts.raleway(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    ),
+                    SizedBox(
                       height: 70,
                       width: 300,
-                      child: RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Livreur()));
-                          },
-                          color: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          child: Text("S'inscrire en tant que livreur",
-                              style: GoogleFonts.raleway(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold))),
                     ),
-                  ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(32.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Professionnel()));
+                            },
+                            child: Text("S'inscrire en tant que Professionel",
+                                style: GoogleFonts.raleway(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    ),
+                  ],
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: SizedBox(
-                      height: 70,
-                      width: 300,
-                      child: RaisedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Professionnel()));
-                          },
-                          color: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          child: Text("S'inscrire en tant que Professionel",
-                              style: GoogleFonts.raleway(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold))),
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 

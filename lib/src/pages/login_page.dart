@@ -76,7 +76,7 @@ class _ConnexionState extends State<Connexion> {
                 SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
+                  child: ElevatedButton(
                     onPressed: () async {
                       await signin();
                       if (!FirebaseAuth.instance.currentUser!.isAnonymous) {
@@ -93,15 +93,16 @@ class _ConnexionState extends State<Connexion> {
                     child: Text(
                       'Se Connecter',
                       style: GoogleFonts.raleway(
-                          color: Colors.blue,
+                          color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 0, right: 120),
-                  child: FlatButton(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 100, vertical: 100),
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -120,8 +121,9 @@ class _ConnexionState extends State<Connexion> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 200, right: 0),
-                  child: FlatButton(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 100, vertical: 100),
+                  child: TextButton(
                     onPressed: () {
                       Navigator.push(
                           context,
@@ -157,66 +159,65 @@ class _MotDePasseState extends State<MotDePasse> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
-          child: Form(
-            key: _formkey,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text('Créer un nouveau mot de passe',
-                      style: GoogleFonts.raleway(
-                          color: Colors.blue,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: 10.0),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Téléphone/Email',
-                        border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10.0),
-                  SizedBox(height: 10.0),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        labelText: 'Nouveau mot de passe',
-                        border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10.0),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        labelText: 'Confirmer le mot de passe',
-                        border: OutlineInputBorder()),
-                  ),
-                  SizedBox(height: 10.0),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      onPressed: () {},
-                      color: Colors.blue,
-                      child: Text(
-                        'valider',
-                        style: GoogleFonts.raleway(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 50.0),
+              child: Form(
+                key: _formkey,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 100.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text('Créer un nouveau mot de passe',
+                          style: GoogleFonts.raleway(
+                              color: Colors.blue,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            labelText: 'Téléphone/Email',
+                            border: OutlineInputBorder()),
                       ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                    ),
+                      SizedBox(height: 10.0),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Nouveau mot de passe',
+                            border: OutlineInputBorder()),
+                      ),
+                      SizedBox(height: 10.0),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Confirmer le mot de passe',
+                            border: OutlineInputBorder()),
+                      ),
+                      SizedBox(height: 10.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'valider',
+                            style: GoogleFonts.raleway(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
