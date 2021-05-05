@@ -30,8 +30,7 @@ class Delivery {
       required this.paymentMode});
 
   Delivery.fromSnapshot(DocumentSnapshot snapshot)
-      : assert(snapshot != null),
-        this.id = snapshot.id,
+      : this.id = snapshot.id,
         this.accepted = snapshot.data()!['accepted'],
         this.client = snapshot.data()!['client'],
         this.created = snapshot.data()!['created'],

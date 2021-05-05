@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SaisieContact extends StatefulWidget {
+class DeliveryPage extends StatefulWidget {
   @override
-  _SaisieContactState createState() => _SaisieContactState();
+  _DeliveryPageState createState() => _DeliveryPageState();
 }
 
-class _SaisieContactState extends State<SaisieContact> {
+class _DeliveryPageState extends State<DeliveryPage> {
   String numeroDestinataire = '';
   String lieuExpedition = '';
   String descriptionColie = '';
@@ -19,6 +19,10 @@ class _SaisieContactState extends State<SaisieContact> {
         home: Scaffold(
       appBar: AppBar(
         title: Text("Contact livreur"),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false)),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -29,7 +33,7 @@ class _SaisieContactState extends State<SaisieContact> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Image.asset(
-                  "images/livraison.png",
+                  "assets/images/livraison.png",
                   height: 100.0,
                   width: 100.0,
                 ),

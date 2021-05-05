@@ -17,8 +17,7 @@ class Client {
       required this.adresses});
 
   Client.fromSnapshot(DocumentSnapshot snapshot)
-      : assert(snapshot != null),
-        this.id = snapshot.id,
+      : this.id = snapshot.id,
         this.firstName = snapshot.data()!['firstName'],
         this.created = snapshot.data()!['created'],
         this.lastName = snapshot.data()!['lastName'],

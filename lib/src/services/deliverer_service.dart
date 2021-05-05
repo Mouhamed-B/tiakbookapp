@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:tiakbookapp/src/models/deliverer.dart';
 
-class ClientService {
+class DelivererService {
   final CollectionReference deliverers =
       FirebaseFirestore.instance.collection('Deliverers');
 
-  Future<bool> addDeliverer(Deliverer del, BuildContext context) async {
+  Future<bool> addDeliverer(Deliverer del) async {
     bool a = false;
     deliverers.add({
       'id': del.id,

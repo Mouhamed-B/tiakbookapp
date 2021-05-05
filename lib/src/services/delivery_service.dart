@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:tiakbookapp/src/models/delivery.dart';
 
-class ClientService {
+class DeliveryService {
   final CollectionReference deliveries =
       FirebaseFirestore.instance.collection('Deliveries');
 

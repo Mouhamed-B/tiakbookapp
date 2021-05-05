@@ -1,7 +1,7 @@
 class Status {
   bool state = false;
   String message = "";
-  var e;
+  Exception? e;
 
   Status({required this.state, required this.message, this.e});
 

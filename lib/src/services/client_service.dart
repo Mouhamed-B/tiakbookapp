@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiakbookapp/src/models/client.dart';
 
 class ClientService {
-  final CollectionReference clients =
+  static final CollectionReference clients =
       FirebaseFirestore.instance.collection('Clients');
 
   Future<bool> addClient(Client clt) async {
