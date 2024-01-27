@@ -5,7 +5,7 @@ class Status {
 
   Status({required this.state, required this.message, this.e});
 
-  Status.Success({required this.state, required this.message});
+  Status.success({required this.state, required this.message});
 
-  Status.Error({required this.state, required this.message, required this.e});
+  Status.error({required this.state, required this.message, required this.e});
 }

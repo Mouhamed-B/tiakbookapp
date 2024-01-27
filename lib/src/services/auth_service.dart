@@ -8,14 +8,14 @@ class AuthService {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: passwd);
-      status = Status.Success(state: true, message: "Inscription Reussie");
+      status = Status.success(state: true, message: "Inscription Reussie");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        status = Status.Error(
+        status = Status.error(
             state: false, message: 'Cet Utilisateur n\'existe pas', e: e);
       } else if (e.code == 'wrong-password') {
         status =
-            Status.Error(state: false, message: 'Mot de passe érroné', e: e);
+            Status.error(state: false, message: 'Mot de passe érroné', e: e);
       }
     }
     return status;
@@ -26,13 +26,13 @@ class AuthService {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: passwd);
-      status = Status.Success(state: true, message: "Inscription Reussie");
+      status = Status.success(state: true, message: "Inscription Reussie");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         status =
-            Status.Error(state: false, message: 'Mot de passe faible', e: e);
+            Status.error(state: false, message: 'Mot de passe faible', e: e);
       } else if (e.code == 'email-already-in-use') {
-        status = Status.Error(
+        status = Status.error(
             state: false, message: 'Cet email est déjà utilisé', e: e);
       }
     }

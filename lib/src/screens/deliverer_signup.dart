@@ -73,7 +73,7 @@ class _DelivererSignupState extends State<DelivererSignup> {
                         height: 100.0, width: 100.0),
                     Text(
                       'Création d\' un compte Livreur',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(

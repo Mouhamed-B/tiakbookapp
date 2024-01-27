@@ -41,7 +41,7 @@ class _ClientSignupState extends State<ClientSignup> {
                         height: 100.0, width: 100.0),
                     Text(
                       'Création d\' un compte Professionnel',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SizedBox(height: 10.0),
                     TextFormField(

@@ -39,7 +39,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                 ),
                 Text(
                   'Veuiller remplir le formulaire pour contacter un livreur',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 SizedBox(height: 10.0),
                 TextFormField(
@@ -101,8 +101,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         style: GoogleFonts.pacifico(
                             color: Colors.white, fontSize: 22)),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      onPrimary: Colors.white,
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
                       shape: const BeveledRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                     ),
