@@ -14,7 +14,7 @@ class ClientService {
       'lastName': clt.lastName,
       'created': clt.created,
       'adresses': clt.adresses
-    }).then((value) {
+    } as Client).then((value) {
       a = true;
     });
     return a;
@@ -24,6 +24,6 @@ class ClientService {
     return clients
         .doc(uid)
         .snapshots()
-        .map((snap) => Client.fromSnapshot(snap));
+        .map((snap) => Client.fromSnapshot(snap as DocumentSnapshot<Client>));
   }
 }

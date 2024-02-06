@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tiakbookapp/src/models/delivery.dart';
 
 class DeliveryService {
-  final CollectionReference deliveries =
-      FirebaseFirestore.instance.collection('Deliveries');
+  final CollectionReference<Delivery> deliveries =
+      FirebaseFirestore.instance.collection('Deliveries') as CollectionReference<Delivery>;
 
   Future<bool> addDelivery(Delivery del) async {
     bool a = false;
@@ -15,7 +15,7 @@ class DeliveryService {
       'destination': del.destination,
       'created': del.created,
       'paymentMode': del.paymentMode
-    }).then((value) => a = true);
+    }as Delivery).then((value) => a = true);
     return a;
   }
 
@@ -27,8 +27,7 @@ class DeliveryService {
   }
 
   Stream<List<Delivery>> getDeliveries(String owner, Object ownerObj) {
-    return FirebaseFirestore.instance
-        .collection('Deliveries')
+    return deliveries
         .where(owner, isEqualTo: ownerObj)
         .snapshots()
         .map((snaphsots) =>

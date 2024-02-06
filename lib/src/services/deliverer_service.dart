@@ -8,27 +8,31 @@ class DelivererService {
 
   Future<bool> addDeliverer(Deliverer del) async {
     bool a = false;
-    deliverers.add({
-      'id': del.id,
-      'firstName': del.firstName,
-      'lastName': del.lastName,
-      'created': del.created,
-      'vehicleType': del.vehicleType
-    }).then((value) {
-      a = true;
-    });
+    try {
+        deliverers.add({
+        'id': del.id,
+        'firstName': del.firstName,
+        'lastName': del.lastName,
+        'created': del.created,
+        'vehicleType': del.vehicleType
+      } as Deliverer).then((value) {
+        a = true;
+      });
+    } catch (e) {
+    }
     return a;
   }
 
   Stream<List<Deliverer>> getDeliverers() {
-    return deliverers.snapshots().map((snaphots) =>
-        snaphots.docs.map((e) => Deliverer.fromSnapshot(e)).toList());
+    return (deliverers).snapshots().map((snaphots) =>
+        snaphots.docs.map((e) => Deliverer.fromSnapshot(e.data() as Map<String, dynamic>)).toList());
   }
 
+
   Stream<Deliverer> getDeliverer(String uid) {
-    return deliverers
+    return (deliverers)
         .doc(uid)
         .snapshots()
-        .map((snap) => Deliverer.fromSnapshot(snap));
+        .map((snap) => Deliverer.fromSnapshot(snap.data() as Map<String, dynamic>));
   }
 }
