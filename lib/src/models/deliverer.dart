@@ -19,13 +19,13 @@ class Deliverer {
       required this.isAvailable,
       this.zones});
 
-  Deliverer.fromSnapshot(DocumentSnapshot snapshot)
-      : this.id = snapshot.id,
-        this.created = snapshot.data()!['created'],
-        this.lastName = snapshot.data()!['lastName'],
-        this.phoneNumber = snapshot.data()!['phoneNumber'],
-        this.vehicleType = snapshot.data()!['vehicleType'],
-        this.firstName = snapshot.data()!['firstName'],
-        this.isAvailable = snapshot.data()!['isAvailable'],
-        this.zones = snapshot.data()!['zones'];
+  Deliverer.fromSnapshot(Map<String, dynamic> snapshot)
+      : this.id = snapshot['id'],
+        this.created = snapshot['created'],
+        this.lastName = snapshot['lastName'],
+        this.phoneNumber = snapshot['phoneNumber'],
+        this.vehicleType = snapshot['vehicleType'],
+        this.firstName = snapshot['firstName'],
+        this.isAvailable = snapshot['isAvailable'],
+        this.zones = snapshot['zones'];
 }

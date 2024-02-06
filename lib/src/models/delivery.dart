@@ -29,16 +29,16 @@ class Delivery {
       this.fullfilled,
       required this.paymentMode});
 
-  Delivery.fromSnapshot(DocumentSnapshot snapshot)
+  Delivery.fromSnapshot(DocumentSnapshot<Delivery> snapshot)
       : this.id = snapshot.id,
-        this.accepted = snapshot.data()!['accepted'],
-        this.client = snapshot.data()!['client'],
-        this.created = snapshot.data()!['created'],
-        this.deliverer = snapshot.data()!['deliverer'],
-        this.destination = snapshot.data()!['destination'],
-        this.description = snapshot.data()!['description'],
-        this.fullfilled = snapshot.data()!['fullfilled'],
-        this.thirdPartyContact = snapshot.data()!['thirdPartyContact'],
-        this.paymentMode = snapshot.data()!['paymentMode'],
-        this.source = snapshot.data()!['source'];
+        this.accepted = snapshot.data()!.accepted,
+        this.client = snapshot.data()!.client,
+        this.created = snapshot.data()!.created,
+        this.deliverer = snapshot.data()!.deliverer,
+        this.destination = snapshot.data()!.destination,
+        this.description = snapshot.data()!.description,
+        this.fullfilled = snapshot.data()!.fullfilled,
+        this.thirdPartyContact = snapshot.data()!.thirdPartyContact,
+        this.paymentMode = snapshot.data()!.paymentMode,
+        this.source = snapshot.data()!.source;
 }
