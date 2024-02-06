@@ -11,6 +11,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Builder(
@@ -56,6 +57,7 @@ class Home extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Explorer()));
@@ -78,6 +80,7 @@ class Home extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                               onPressed: () {
                                 Navigator.push(
                                     context,
@@ -102,6 +105,7 @@ class Home extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                               onPressed: () {
                                 Navigator.push(
                                     context,

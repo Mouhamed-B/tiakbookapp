@@ -57,9 +57,7 @@ class _DelivererSignupState extends State<DelivererSignup> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
           appBar: (AppBar(title: Center(child: Text("Inscription ")))),
           body: SingleChildScrollView(
             child: Container(
@@ -143,8 +141,9 @@ class _DelivererSignupState extends State<DelivererSignup> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                         onPressed: () async {
                           if (_formkey.currentState!.validate()) {
                             await auth
@@ -185,7 +184,7 @@ class _DelivererSignupState extends State<DelivererSignup> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: OutlinedButton(
                           onPressed: () {
                             Navigator.push(
@@ -204,6 +203,6 @@ class _DelivererSignupState extends State<DelivererSignup> {
               ),
             ),
           ),
-        ));
+        );
   }
 }

@@ -81,8 +81,9 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 SizedBox(height: 10.0),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     onPressed: () async {
                       await authService
                           .signin(
@@ -114,7 +115,7 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 100, vertical: 100),
+                      horizontal: 15, vertical: 15),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -135,7 +136,7 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 100, vertical: 100),
+                      horizontal: 15, vertical: 15),
                   child: TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -213,7 +214,7 @@ class _MotDePasseState extends State<MotDePasse> {
                       ),
                       SizedBox(height: 10.0),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(16.0),
                         child: ElevatedButton(
                           onPressed: () {},
                           child: Text(

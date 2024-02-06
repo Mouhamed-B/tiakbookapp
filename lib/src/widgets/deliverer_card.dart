@@ -15,11 +15,13 @@ class DelivererCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ButtonStyle(
-            padding:
-                MaterialStateProperty.all(EdgeInsets.only(top: 5, bottom: 5)),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.black87)),
+        style: ElevatedButton.styleFrom(
+            padding: (EdgeInsets.only(top: 5, bottom: 5)),
+            backgroundColor: (Colors.white),
+            foregroundColor: (Colors.black87),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            textStyle: TextStyle(fontSize: 20)
+        ),
         onPressed: () {
           Navigator.push(
               context,
@@ -37,7 +39,7 @@ class DelivererCard extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: vh(context, .01),
+                  height: vh(context, .05),
                 ),
                 Row(children: [
                   Text(del.firstName + " "),

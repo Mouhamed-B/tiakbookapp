@@ -26,9 +26,10 @@ class _ClientSignupState extends State<ClientSignup> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+    return Scaffold(
+          appBar: AppBar(
+            title: Center(child: Text("S'inscrire")),
+          ),
           body: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
@@ -40,7 +41,7 @@ class _ClientSignupState extends State<ClientSignup> {
                     Image.asset("assets/images/telecharger.jpg",
                         height: 100.0, width: 100.0),
                     Text(
-                      'Création d\' un compte Professionnel',
+                      'Création d\' un compte Client',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     SizedBox(height: 10.0),
@@ -96,8 +97,9 @@ class _ClientSignupState extends State<ClientSignup> {
                     ),
                     SizedBox(height: 10.0),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                         onPressed: () async {
                           if (_formkey.currentState!.validate()) {
                             Status status = await auth.signup(
@@ -126,6 +128,6 @@ class _ClientSignupState extends State<ClientSignup> {
               ),
             ),
           ),
-        ));
+        );
   }
 }
