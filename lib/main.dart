@@ -5,7 +5,7 @@ import 'package:tiakbookapp/src/Wrapper.dart';
 import 'package:tiakbookapp/src/screens/error_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tiakbookapp/src/screens/splashscreen_page.dart';
-
+import 'package:tiakbookapp/firebase_options.dart';
 void main() {
   //await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ void main() {
 
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +24,7 @@ class App extends StatelessWidget {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
+          print(snapshot.error.toString());
           return ErrorScreen();
         }
 
